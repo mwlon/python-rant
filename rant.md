@@ -20,7 +20,7 @@ I'll be comparing Python to JavaScript.
 Like Python, JavaScript is another common, easy-to-learn, scripting, dynamically-typed language.
 Although it definitely also has flaws, it is worlds better for real projects.
 
-Sometimes I'll also mention Scala, my current favorite language for real projects, which a moderately common, moderately difficulty to learn, compiled, statically-typed laguage.
+Sometimes I'll also mention Scala, my current favorite language for real projects, which a moderately common, moderately difficulty to learn, compiled, statically-typed language.
 It is similar to Java in many ways, runs on the JVM, but is much more concise and has much more powerful features, especially concerning types.
 
 Below are my reasons why you should never use Python for big projects.
@@ -146,7 +146,7 @@ Plus, I always forget whether Python puts the function or data structure first i
 
 <h3>3. Python standard libraries are lame and excessive.</h3>
 
-The Python standard libarary (what you can get to via `import x` without doing any installation of `x`) isn't very well thought out, and the composition of packages within it feels like a mess.
+The Python standard library (what you can get to via `import x` without doing any installation of `x`) isn't very well thought out, and the composition of packages within it feels like a mess.
 A tiny sample of its nuisances:
 * The `json` library writes non-standard JSON by default, including `NaN`'s and `Infinity`'s.
 * There are at least 4 libraries that measure time and differences between them: `datetime`, `time`, `calendar`, and `timeit`.
@@ -253,7 +253,7 @@ What if I have another file in the same directory called `utils`?
 The syntax does not distinguish; Python imports hide where `utils` is really coming from.
 Python does have a relative import pattern that might be clearer in some cases, but Python discourages its usage because it has yet more quirks and limitations.
 
-I haven't even gotten into `sys.path` and the many unecessarily complicated mechanisms used in Python to get stuff imported.
+I haven't even gotten into `sys.path` and the many unnecessarily complicated mechanisms used in Python to get stuff imported.
 Far from the dream of `import my_module` just working, Python has managed to make the internals and syntax of imports far more abstruse than any other language I've seen.
 I recommend [this guide](https://chrisyeh96.github.io/2017/08/08/definitive-guide-python-imports.html) for trying to sort out some of your Python import woes.
 
@@ -318,5 +318,5 @@ But my main take on The Zen of Python is that Python doesn't really meet these p
 
 The gestalt I get is that Python tries to coddle us, hiding complexities that necessarily exist.
 Whenever you need to do the lower level/higher performance/more general/better coding practice thing that Python did not make simple, the facade breaks down, and code that should be clean becomes awkward or monstrous.
-We can have readable, eaily-maintained, high-level programs without this nonsense.
+We can have readable, easily-maintained, high-level programs without this nonsense.
 We just can't do it with Python.
