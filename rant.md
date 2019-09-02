@@ -77,7 +77,7 @@ Even Python's best solution here is substantially more work than in JavaScript o
 
 However, what people often end up doing is this sirenic solution:
 ```
-def fn(\*args):
+def fn(*args):
   ...
   return (a, b, c)
 
@@ -239,9 +239,9 @@ AND even then, you might need to run your code with `python(3) -m main`.
 Here's what your imports will look like:
 ```
 >utils.py
-from handlers import my\_handler
+from handlers import my_handler
 
->my\_handler.py
+>my_handler.py
 import utils
 ```
 
