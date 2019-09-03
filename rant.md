@@ -20,14 +20,14 @@ I'll be comparing Python to JavaScript.
 Like Python, JavaScript is another common, easy-to-learn, scripting, dynamically-typed language.
 Although it definitely also has flaws, it is worlds better for real projects.
 
-Sometimes I'll also mention Scala, my current favorite language for real projects, which a moderately common, moderately difficulty to learn, compiled, statically-typed language.
+Sometimes I'll also mention Scala, my current favorite language for real projects, which is a moderately common, moderately difficulty to learn, compiled, statically-typed language.
 It is similar to Java in many ways, runs on the JVM, but is much more concise and has much more powerful features, especially concerning types.
 
 Below are my reasons why you should never use Python for big projects.
 
 <h3>1. Python is verbose in ways that encourage bad practices.</h3>
 
-Let's say you have a function that returns a few pieces of data `a`, `b`, `c`. In javascript, one would usually write
+Let's say you have a function that returns a few pieces of data `a`, `b`, `c`. In JavaScript, one would usually write
 ```
 function fn(...args) {
   ...
@@ -91,19 +91,42 @@ Now, if we ever want to change `fn` to output `(a, b, d, c)`, every piece of cod
 In other words, what should be an `O(1)` coding time change costs `O(n)` coding time when using this pattern.
 
 Also, clarity is forfeit.
-The only way to know the order of results `fn` results is to check its definition; you can no longer ask for `result.a`.
+The only way to know the order of results `fn` returns is to check its definition; you can no longer ask for `result.a`.
 
-If your Python software project exhibits this pattern, I offer my sympathy. Python got you hooked by giving you that first use for (what seemed to be) free.
+If your Python software project exhibits this pattern, I offer my sympathy.
+Python got you hooked by giving you that first use for (what seemed to be) free.
 
-<h3>2. Python built-in functions are lame.</h3>
+<h3>2. Python environments are hell.</h3>
 
-<h4>2a. They steal the good variable names.</h4>
+I'm not the first one to [remark on this](https://xkcd.com/1987/).
+Working with pip, Conda, and global and virtual versions of Python is such a nightmare that I don't want to get into it here.
+I've had far more trouble with package and version management in Python than any other language.
+
+In Python, elaborate tools like Conda are necessities.
+Some packages simply have contradictory version requirements, making them impossible to install together.
+For me, not too long ago, that was `tensorflow` and `jupyter`.
+The most practical way to dev around this is with Conda, which uses virtual environments.
+I now have one environment for `tensorflow` and one for `jupyter`.
+It's just an utter drain to keep all your packages happy and to switch between environments.
+
+Plus, your system will look very complicated for those cases when you really need to debug a package issue.
+It will be a nightmare of pipes, paths, and directories.
+That XKCD comic I linked shows it best.
+
+Better languages avoid these issues by mostly relying on project-level dependencies, rather than globally-installed packages.
+In my view, packages should be cached locally for projects to access with specific version requirements, rather than forcing all projects in an environment to share the same global packages.
+NPM for JavaScript does alright by mostly sticking to per-project dependencies (but it unfortunately it lacks a global cache).
+Build tools and package managers for just about any other language seem to have figured out what Python has not.
+
+<h3>3. Python built-in functions are lame.</h3>
+
+<h4>3a. They steal the good variable names.</h4>
 
 I can't use `file` or `dir` or `len` or `id` or `input` for my variables names without overriding some built-in function?
 Those are often the names I want to give to variables!
 As a result, I often see (and, shamefully, use) lousy variable names like `f` for files.
 
-<h4>2b. They cause confusion and ugly code.</h4>
+<h4>3b. They cause confusion and ugly code.</h4>
 
 Many of the built-in Python functions just defer to the particular class's implementation.
 For instance, `len` just calls the `__len__` method.
@@ -144,42 +167,42 @@ Lots of nested parentheses, and the operators come in the opposite order you wan
 You have to think backwards to write or read this code.
 Plus, I always forget whether Python puts the function or data structure first in `filter` and `map`, an issue that doesn't arise with function chains.
 
-<h3>3. Python standard libraries are lame and excessive.</h3>
+Of course, this example could also be done with a list comprehension:
+```
+arr = [-4, 1, 2, 3]
+result = [x * x for x in arr if x % 2 == 0].sort()
+```
+This is a nice solution, but it only strengthens the point that Python built-in functions are useless.
+
+<h3>4. Python standard libraries are lame and excessive.</h3>
 
 The Python standard library (what you can get to via `import x` without doing any installation of `x`) isn't very well thought out, and the composition of packages within it feels like a mess.
 A tiny sample of its nuisances:
 * The `json` library writes non-standard JSON by default, including `NaN`'s and `Infinity`'s.
 * There are at least 4 libraries that measure time and differences between them: `datetime`, `time`, `calendar`, and `timeit`.
-* Standard libraries for utterly niche and sometimes obsolete use cases, like `macpath`, a tool for working with file paths in MacOS 9 and earlier.
+* Standard libraries exist for utterly niche and sometimes obsolete use cases, like `macpath`, a tool for working with file paths in MacOS 9 and earlier.
 
 To see how bloated the Python standard library is, just compare its [list of 246 libraries](https://docs.python.org/3/library/index.html) with NodeJS's [list of 48](https://nodejs.org/api/).
 I think for most use cases, they cover about the same ground, and NodeJS's do it a bit more consistently and elegantly.
 
-<h3>4. Python environments are hell.</h3>
+<h3>5. Python concurrency is hell.</h3>
 
-I'm not the first one to [remark on this](https://xkcd.com/1987/).
-Working with pip, Conda, and global and virtual versions of Python is such a nightmare that I don't want to get into it here.
-I've had far more trouble with package and version management in Python than any other language.
+Any significant project or backend eventually needs concurrency, whether to take full advantage of your CPU's, execute long-running network calls without hanging, or just let higher-priority threads do their work.
+But Python is famously bad at this.
 
-In Python, elaborate tools like Conda are necessities.
-Some packages simply have contradictory version requirements, making them impossible to install together.
-For me, not too long ago, that was `tensorflow` and `jupyter`.
-The most practical way to dev around this is with Conda, which uses virtual environments.
-I now have one environment for `tensorflow` and one for `jupyter`.
-It's just an utter drain to keep all your packages happy and to switch between environments.
+Due to an implementation detail in Python called the Global Interpreter Lock (GIL), each Python process runs only one command at a time.
+This means your code can still be efficient if it's just waiting for a network call or external process, but that it can't take full advantage of CPU resources.
 
-Plus, your system will look very complicated for those cases when you really need to debug a package issue.
-It will be a nightmare of pipes, paths, and directories.
-That XKCD comic I linked shows it best.
+Also, the GIL [probably isn't going away](https://wiki.python.org/moin/GlobalInterpreterLock).
 
-Better languages avoid these issues by mostly relying on project-level dependencies, rather than globally-installed packages.
-In my view, packages should be cached locally for projects to access with specific version requirements, rather than forcing all projects in an environment to share the same global packages.
-NPM for JavaScript does alright by mostly sticking to per-project dependencies (but it unfortunately it lacks a global cache).
-Build tools and package managers for just about any other language seem to have figured out what Python has not.
+Sure, you can use the Python `multiprocessing` library to run a lot of Python processes until you have full CPU usage, but Python has to pickle and unpickle all the data each process needs.
+If each process has low CPU usage, or the amount of data they share is large, this will be horribly inefficient.
 
-<h3>5. Python imports are hell.</h3>
+This isn't a problem in Scala, any JavaScript implementations I'm aware of, or pretty much any other common language.
 
-<h4>5a. Getting them to work is hideous.</h4>
+<h3>6. Python imports are hell.</h3>
+
+<h4>6a. Getting them to work is hideous.</h4>
 
 Oh, boy.
 Let's say we have a simple, plausible project structure:
@@ -257,7 +280,7 @@ I haven't even gotten into `sys.path` and the many unnecessarily complicated mec
 Far from the dream of `import my_module` just working, Python has managed to make the internals and syntax of imports far more abstruse than any other language I've seen.
 I recommend [this guide](https://chrisyeh96.github.io/2017/08/08/definitive-guide-python-imports.html) for trying to sort out some of your Python import woes.
 
-<h4>5b. They have weird behavior.</h4>
+<h4>6b. They have weird behavior.</h4>
 
 I've observed some other annoying oddities about Python imports.
 For instance, let's say you have two files:
@@ -285,31 +308,16 @@ here
 So be careful putting any global code in your files - it might be run twice, depending on the entry point.
 No sane language does this.
 
-<h3>6. Python concurrency is hell.</h3>
-
-Any significant project or backend eventually needs concurrency, whether to take full advantage of your CPU's, execute long-running network calls without hanging, or just let higher-priority threads do their work.
-But Python is famously bad at this.
-
-Due to an implementation detail in Python called the Global Interpreter Lock (GIL), each Python process runs only one command at a time.
-This means your code can still be efficient if it's just waiting for a network call or external process, but that your Python multithreading can't take full advantage of CPU resources.
-
-Also, the GIL [probably isn't going away](https://wiki.python.org/moin/GlobalInterpreterLock).
-
-Sure, you can use the Python `multiprocessing` library to run a lot of Python processes until you have full CPU usage, but Python has to pickle and unpickle all the data each process needs.
-If each process has low CPU usage, or the amount of data they share is large, this will be horribly inefficient.
-
-This isn't a problem in Scala, any JavaScript implementations I'm aware of, or pretty much any other common language.
-
 <h2>Is Python zen?</h2>
 
-I couldn't finish this post without tying it into Python's guiding philosophy, [The Zen of Python](https://en.wikipedia.org/wiki/Zen_of_Python), obtainable by `python(3) -c "import this"`.
+I couldn't finish this post without tying it into Python's guiding philosophy, [Zen of Python](https://en.wikipedia.org/wiki/Zen_of_Python), obtainable by `python(3) -c "import this"`.
 For the most part, these are hard to argue with, but how people choose to interpret them varies wildly.
 
 The only one of these platitudes that actually bothers me is, "If the implementation is hard to explain, it's a bad idea."
 In practice, hard problems always come up, and code will become hard to explain at some point.
 Hiding from the problem, or dumbing down any challenge that comes your way into the most easily-explainable solution, will only result in slow code that is hard to maintain.
 
-But my main take on The Zen of Python is that Python doesn't really meet these platitudes.
+But my main take on Zen of Python is that Python doesn't really meet these platitudes.
 * "Beautiful is better than ugly." Then why is every Python codebase littered with `default_x if x is None else x`?
 * "Readability counts." Then why must functions like `map`, `filter`, `sorted` come before the thing they're applied to rather than after?
 * "Although practicality beats purity." Then why is concurrency so horrible?
