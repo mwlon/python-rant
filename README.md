@@ -1,9 +1,9 @@
-I've had several conversations recently about Python and why I think it's a bad programming language for real software development.
+I've had several conversations about Python and why I think it's a bad programming language for real software development.
 A lot of people are surprised when I say this.
 
 I assert Python persists for a few main reasons:
 * It is easy to learn.
-* It has a few ideas that spark people's interest.
+* It has a few cool ideas that spark people's interest.
 * In math-related and especially machine learning fields, it has acquired a critical mass of libraries and users.
 * Writing small programs in Python can be very quick.
 
