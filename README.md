@@ -1,3 +1,5 @@
+<h2>Background</h2>
+
 I've had several conversations about Python and why I think it's a bad programming language for real software development.
 A lot of people are surprised when I say this.
 
@@ -23,7 +25,7 @@ Although it definitely also has flaws, it is worlds better for real projects.
 Sometimes I'll also mention Scala, my current favorite language for real projects, which is a moderately common, moderately difficulty to learn, compiled, statically-typed language.
 It is similar to Java in many ways, runs on the JVM, but is much more concise and has much more powerful features, especially concerning types.
 
-Below are my reasons why you should never use Python for big projects.
+<h2>Why you shouldn't use Python for big projects</h2>
 
 <h3>1. Python is verbose in ways that encourage bad practices.</h3>
 
