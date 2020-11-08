@@ -13,7 +13,7 @@ Like many others, I learned Python as my first programming language.
 For years, it was also my strongest.
 I still use Python frequently for machine learning.
 Usually training and evaluating a model requires only a modest amount of code, and the trained model can be hooked up into a system that uses only minimal Python, so that's fine by me.
-I also use Python for short explorations, and have no quarrel about that.
+I also use Python for short explorations, and have I no quarrel about that.
 
 However, I've found that for larger projects, it quickly becomes untenable.
 A number of people have told me they still like it in production systems, but I'm inclined to believe they aren't fully aware of what they're missing out on.
@@ -172,9 +172,10 @@ Plus, I always forget whether Python puts the function or data structure first i
 Of course, this example could also be done with a list comprehension:
 ```
 arr = [-4, 1, 2, 3]
-result = [x * x for x in arr if x % 2 == 0].sort()
+result = [x * x for x in arr if x % 2 == 0]
+result.sort()
 ```
-This is a nice solution, but it only strengthens the point that Python built-in functions are useless.
+This is a nicer solution, but it only strengthens the point that Python built-in functions are useless.
 
 <h3>4. Python standard libraries are lame and excessive.</h3>
 
